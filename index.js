@@ -1,6 +1,5 @@
-const path = require('path')
 const sort = require('./app.js')
-const path2000 = path.join(__dirname, '2000')
-const path1800 = path.join(__dirname, '1800')
 
-sort.sortFiles(path2000, path1800);
+
+sort.sortFiles('2000', '1800', 'male');
+sort.sortFiles('1800', '2000', 'female');
