@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-exports.femaleMv = function(pathToDirMale, pathToDirFemale){
+exports.sortFiles = function(pathToDirMale, pathToDirFemale){
 
     fs.readdir(pathToDirMale, (err, files) => {
         files.forEach( file => {
