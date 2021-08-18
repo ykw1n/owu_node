@@ -1,35 +1,22 @@
 const fs = require('fs')
 const path = require('path')
 
-exports.sortFiles = function(pathToDirMale, pathToDirFemale){
-
-    fs.readdir(pathToDirMale, (err, files) => {
-        files.forEach( file => {
-            currPath = path.join(pathToDirMale,file)
-            pathToFemale = path.join(pathToDirFemale,file)
-            let text = fs.readFileSync(path.join(pathToDirMale,file));
-            if (text.toString().includes('female')) {
-                fs.rename(currPath, pathToFemale, function (err)  {
+exports.sortFiles = function (pathFrom, pathTo, sortBy) {
+    const baseDirFrom = path.join(__dirname, pathFrom);
+    const baseDirTo = path.join(__dirname, pathTo);
+    fs.readdir(baseDirFrom, (err, files) => {
+        files.forEach(file => {
+            fullCurrPath = path.join(baseDirFrom, file);
+            fullPathTo = path.join(baseDirTo, file);
+            let text = fs.readFileSync(path.join(baseDirFrom, file));
+            if ((/"male/.test(text.toString()) && sortBy != 'male') || (/"female/.test(text.toString()) && sortBy != 'female')) {
+                fs.rename(fullCurrPath, fullPathTo, function (err) {
                     if (err) throw err
-                    console.log('success moved to girls:' + file)
+                    console.log(`success moved from ${sortBy} :` + file);
                 });
             }
 
         })
     })
 
-    fs.readdir(pathToDirFemale, (err, files) => {
-        files.forEach( file => {
-            currPath = path.join(pathToDirFemale,file)
-            pathToFemale = path.join(pathToDirMale,file)
-            let text = fs.readFileSync(path.join(pathToDirFemale,file));
-            if (/"male/.test(text.toString())) {
-                fs.rename(currPath, pathToFemale, function (err)  {
-                    if (err) throw err
-                    console.log('success moved to men:' + file)
-                });
-            }
-
-        })
-    })
 }
