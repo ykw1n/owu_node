@@ -11,7 +11,8 @@ exports.sortFiles = function (pathFrom, pathTo, sortBy) {
             fullPathTo = path.join(baseDirTo, file);
             let text = fs.readFileSync(path.join(baseDirFrom, file));
             
-            if ((/"male/.test(text.toString()) && sortBy != 'male') || (/"female/.test(text.toString()) && sortBy != 'female')) {
+            if ((/"male/.test(text.toString()) && sortBy != 'male')
+                || (/"female/.test(text.toString()) && sortBy != 'female')) {
                 fs.rename(fullCurrPath, fullPathTo, function (err) {
                     if (err) throw err
                     console.log(`success moved from ${sortBy} :` + file);
